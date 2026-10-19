@@ -1,0 +1,1243 @@
+/* ========================================================
+   시골 마루의 밥알 세기 게임 스타일시트 (style.css)
+   ======================================================== */
+
+:root {
+  --wood-dark: #5c3a21;
+  --wood-mid: #8b5a2b;
+  --wood-light: #d2a679;
+  --wood-table: #b37d4e;
+  --rice-white: #fafaf8;
+  --sky-blue: #7ec8e3;
+  --sky-light: #cdebf7;
+  --field-green: #7bb33e;
+  --field-gold: #e2ba47;
+  --river-blue: #4aa3df;
+  --primary-color: #8c531b;
+  --primary-hover: #aa6826;
+  --accent-gold: #f39c12;
+  --font-title: 'Sunflower', sans-serif;
+  --font-body: 'Gowun Dodum', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background-color: #2b1f1d;
+  color: #333;
+}
+
+/* 전체 컨테이너 */
+#game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  cursor: none; /* 시스템 마우스 커서 숨기고 커스텀 젓가락 커서 사용 */
+}
+
+/* ========================================================
+   1. 풍성하고 아름다운 시골 풍경 배경
+   ======================================================== */
+#countryside-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 맑고 화창한 여름 하늘 */
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, #4ca8e0 0%, #82cbf0 45%, #c5eaf7 75%, #fff6d1 100%);
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute;
+  top: 25px;
+  right: 14%;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #fffdf2 30%, #ffdf78 70%, #ffa500 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 50px #ffdf78, 0 0 100px rgba(255, 215, 0, 0.45);
+  animation: sunGlow 5s infinite alternate ease-in-out;
+}
+
+.sun-flare {
+  position: absolute;
+  top: -15px;
+  right: 10%;
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 235, 170, 0.2) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 따스하게 쏟아지는 여름 햇살 (Sun Rays) */
+.sun-rays {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.08) 0px,
+    rgba(255, 255, 255, 0.08) 40px,
+    transparent 40px,
+    transparent 120px
+  );
+  pointer-events: none;
+}
+
+@keyframes sunGlow {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.06); filter: brightness(1.15); }
+}
+
+/* 몽실몽실 뭉게구름 */
+.cloud {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50px;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 10px rgba(80, 140, 180, 0.2));
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  width: 150px; height: 48px;
+  top: 35px;
+  animation: floatCloud 70s linear infinite;
+}
+.cloud-1::before { width: 60px; height: 60px; top: -28px; left: 22px; }
+.cloud-1::after { width: 80px; height: 80px; top: -40px; left: 60px; }
+
+.cloud-2 {
+  width: 200px; height: 60px;
+  top: 85px;
+  animation: floatCloud 105s linear infinite 20s;
+}
+.cloud-2::before { width: 75px; height: 75px; top: -35px; left: 32px; }
+.cloud-2::after { width: 100px; height: 100px; top: -50px; left: 80px; }
+
+.cloud-3 {
+  width: 120px; height: 38px;
+  top: 145px;
+  animation: floatCloud 80s linear infinite 40s;
+  opacity: 0.75;
+}
+.cloud-3::before { width: 45px; height: 45px; top: -20px; left: 18px; }
+.cloud-3::after { width: 55px; height: 55px; top: -28px; left: 50px; }
+
+.cloud-4 {
+  width: 170px; height: 52px;
+  top: 25px;
+  animation: floatCloud 90s linear infinite 55s;
+  opacity: 0.85;
+}
+.cloud-4::before { width: 65px; height: 65px; top: -30px; left: 28px; }
+.cloud-4::after { width: 80px; height: 80px; top: -38px; left: 70px; }
+
+@keyframes floatCloud {
+  0% { left: -240px; }
+  100% { left: 105vw; }
+}
+
+/* 날아가는 제비/새들 */
+.birds-group {
+  position: absolute;
+  top: 65px;
+  left: 25%;
+  animation: flyBirds 48s linear infinite;
+}
+.bird {
+  position: relative;
+  width: 15px;
+  height: 8px;
+  border-top: 2.2px solid #486580;
+  border-radius: 50% 50% 0 0;
+  margin-bottom: 9px;
+}
+.bird::after {
+  content: '';
+  position: absolute;
+  right: -11px;
+  width: 15px;
+  height: 8px;
+  border-top: 2.2px solid #486580;
+  border-radius: 50% 50% 0 0;
+}
+.bird-1 { transform: scale(0.95); }
+.bird-2 { margin-left: 22px; transform: scale(0.75); }
+.bird-3 { margin-left: 45px; transform: scale(0.85); }
+
+@keyframes flyBirds {
+  0% { transform: translate(-120px, 30px); opacity: 0; }
+  10% { opacity: 0.85; }
+  90% { opacity: 0.85; }
+  100% { transform: translate(75vw, -45px); opacity: 0; }
+}
+
+/* 원경 푸른 산맥 */
+.mountains-back {
+  position: absolute;
+  bottom: 45%;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: 
+    radial-gradient(ellipse at 15% 100%, #769cb3 0%, #769cb3 40%, transparent 70%),
+    radial-gradient(ellipse at 45% 100%, #60889f 0%, #60889f 45%, transparent 75%),
+    radial-gradient(ellipse at 80% 100%, #6e94a9 0%, #6e94a9 45%, transparent 70%);
+  opacity: 0.9;
+}
+
+/* 중경 산맥 */
+.mountains-mid {
+  position: absolute;
+  bottom: 40%;
+  left: 0;
+  width: 100%;
+  height: 155px;
+  background: 
+    radial-gradient(ellipse at 25% 100%, #4a7d48 0%, #4a7d48 50%, transparent 80%),
+    radial-gradient(ellipse at 65% 100%, #3e6e3c 0%, #3e6e3c 55%, transparent 80%),
+    radial-gradient(ellipse at 95% 100%, #467743 0%, #467743 50%, transparent 80%);
+  opacity: 0.95;
+}
+
+/* 울창한 숲 군락 (Dense Forest) */
+.dense-forest {
+  position: absolute;
+  bottom: 37%;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  pointer-events: none;
+}
+.forest-tree {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 30% 30%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.ft1 { left: 2%; width: 65px; height: 85px; background: #2d5a27; }
+.ft2 { left: 7%; width: 55px; height: 75px; background: #35672e; }
+.ft3 { left: 48%; width: 80px; height: 80px; background: #274f22; }
+.ft4 { right: 18%; width: 70px; height: 85px; background: #2f5f29; }
+.ft5 { right: 8%; width: 85px; height: 95px; background: #244b1f; }
+
+/* 시원하게 흐르는 강가 */
+.river-container {
+  position: absolute;
+  bottom: 27%;
+  left: 0;
+  width: 100%;
+  height: 125px;
+  overflow: hidden;
+}
+.river-water {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  width: 140%;
+  height: 100%;
+  background: linear-gradient(175deg, #439dd5 0%, #297fb9 40%, #4fb2e4 75%, #7ed0f7 100%);
+  clip-path: polygon(0 15%, 35% 0%, 75% 25%, 100% 10%, 100% 100%, 0 100%);
+  animation: riverFlow 7s ease-in-out infinite alternate;
+}
+.river-glimmer {
+  position: absolute;
+  top: 20%;
+  left: 8%;
+  width: 84%;
+  height: 55%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.48) 0px,
+    rgba(255, 255, 255, 0.48) 18px,
+    transparent 18px,
+    transparent 50px
+  );
+  filter: blur(2px);
+  opacity: 0.7;
+  animation: riverShine 3.5s infinite alternate ease-in-out;
+}
+@keyframes riverFlow {
+  0% { transform: skewX(-1.2deg) scaleY(1); }
+  100% { transform: skewX(1.2deg) scaleY(1.05); }
+}
+@keyframes riverShine {
+  0% { opacity: 0.35; transform: translateX(-20px); }
+  100% { opacity: 0.8; transform: translateX(25px); }
+}
+
+/* 강가 조각배 (Wooden Boat) */
+.wooden-boat {
+  position: absolute;
+  bottom: 28px;
+  left: 32%;
+  width: 48px;
+  height: 18px;
+  animation: boatBob 4s ease-in-out infinite alternate;
+}
+.boat-hull {
+  width: 48px;
+  height: 14px;
+  background: #734827;
+  border-radius: 4px 4px 18px 18px;
+  border-top: 2px solid #5a3518;
+}
+.boat-oar {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  width: 24px;
+  height: 3px;
+  background: #a07149;
+  transform: rotate(25deg);
+  border-radius: 2px;
+}
+@keyframes boatBob {
+  0% { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(4px) rotate(1.5deg); }
+}
+
+/* 강가 갈대숲 */
+.reeds {
+  position: absolute;
+  bottom: 0;
+  width: 45px;
+  height: 50px;
+  background: repeating-linear-gradient(
+    82deg,
+    #537e3d 0px,
+    #537e3d 3px,
+    transparent 3px,
+    transparent 7px
+  );
+  transform-origin: bottom center;
+  animation: swayReeds 3s ease-in-out infinite alternate;
+}
+.reeds.r1 { left: 12%; }
+.reeds.r2 { right: 28%; animation-delay: 1.2s; }
+@keyframes swayReeds {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+/* 싱그러운 계단식 논밭 & 시골 정경 */
+.rice-fields {
+  position: absolute;
+  bottom: 16%;
+  left: 0;
+  width: 100%;
+  height: 180px;
+}
+.field-stripe {
+  position: absolute;
+  width: 110%;
+  left: -5%;
+  border-radius: 14px;
+}
+.field-stripe.f1 {
+  bottom: 105px;
+  height: 50px;
+  background: linear-gradient(to right, #7fb742, #94c84d, #80b841);
+  transform: rotate(-1.5deg);
+}
+.field-stripe.f2 {
+  bottom: 55px;
+  height: 60px;
+  background: linear-gradient(to right, #8ec448, #add654, #8cc145);
+  transform: rotate(1deg);
+}
+.field-stripe.f3 {
+  bottom: 0;
+  height: 75px;
+  background: linear-gradient(to right, #98cf4b, #c0e05d, #96cc47);
+  transform: rotate(-0.5deg);
+}
+
+/* 정겨운 논두렁 허수아비 */
+.scarecrow {
+  position: absolute;
+  bottom: 75px;
+  right: 18%;
+  width: 25px;
+  height: 45px;
+  z-index: 2;
+}
+.sc-hat {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 20px;
+  height: 6px;
+  background: #c8a165;
+  border-radius: 4px;
+}
+.sc-head {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  width: 10px;
+  height: 10px;
+  background: #f5eedc;
+  border-radius: 50%;
+}
+.sc-arms {
+  position: absolute;
+  top: 14px;
+  left: -4px;
+  width: 32px;
+  height: 4px;
+  background: #4a6fa5;
+  border-radius: 2px;
+}
+.sc-body {
+  position: absolute;
+  top: 14px;
+  left: 6px;
+  width: 12px;
+  height: 16px;
+  background: #d9534f;
+  border-radius: 2px;
+}
+.sc-pole {
+  position: absolute;
+  top: 30px;
+  left: 11px;
+  width: 3px;
+  height: 15px;
+  background: #7a503a;
+}
+
+/* 정겨운 시골집 */
+.rural-house {
+  position: absolute;
+  bottom: 110px;
+  left: 14%;
+  width: 65px;
+  height: 50px;
+  z-index: 2;
+}
+.rural-house .roof {
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 82px;
+  height: 22px;
+  background: #6e432c;
+  border-radius: 22px 22px 4px 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.rural-house .wall {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  width: 56px;
+  height: 30px;
+  background: #ebd4b2;
+  border: 1px solid #c2a885;
+}
+.rural-house .window {
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  width: 14px;
+  height: 14px;
+  background: #ffeaa7;
+  border: 1px solid #a8855a;
+}
+.rural-house .chimney {
+  position: absolute;
+  top: -14px;
+  right: 8px;
+  width: 9px;
+  height: 17px;
+  background: #7a4838;
+}
+.rural-house .smoke {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: rgba(245, 245, 245, 0.75);
+  border-radius: 50%;
+  animation: smokeRise 4s infinite linear;
+}
+@keyframes smokeRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.85; }
+  100% { transform: translateY(-34px) scale(2.3); opacity: 0; }
+}
+
+/* 시골 장독대 항아리들 */
+.jangdokdae {
+  position: absolute;
+  bottom: 80px;
+  left: 23%;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  z-index: 2;
+}
+.pot {
+  background: radial-gradient(circle at 35% 30%, #5e3b23 0%, #362013 70%, #20130a 100%);
+  border-radius: 40% 40% 45% 45%;
+  border-top: 3px solid #2d180b;
+}
+.pot-large { width: 22px; height: 26px; }
+.pot-mid { width: 17px; height: 20px; }
+.pot-small { width: 13px; height: 16px; }
+
+/* 큰 시골 정자나무(느티나무) */
+.big-tree {
+  position: absolute;
+  bottom: 70px;
+  left: 4%;
+  width: 80px;
+  height: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tree-trunk {
+  position: absolute;
+  bottom: 0;
+  left: 33px;
+  width: 14px;
+  height: 55px;
+  background: #54371e;
+  border-radius: 3px;
+}
+.tree-foliage {
+  position: absolute;
+  background: #396f2d;
+  border-radius: 50%;
+}
+.fol-1 { top: 0; left: 10px; width: 60px; height: 50px; background: #3c7730; }
+.fol-2 { top: 15px; left: -2px; width: 45px; height: 42px; background: #336628; }
+.fol-3 { top: 18px; right: -2px; width: 48px; height: 44px; background: #458338; }
+
+/* 마당가 들꽃 정원 (해바라기 & 코스모스) */
+.wildflowers-box {
+  position: absolute;
+  bottom: 30px;
+  right: 8%;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 2;
+}
+.sunflower {
+  position: relative;
+  width: 20px;
+  height: 38px;
+  background: #47702e;
+  border-radius: 2px;
+}
+.sunflower::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  width: 26px;
+  height: 26px;
+  background: #f1c40f;
+  border-radius: 50%;
+}
+.sf-center {
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #5d3816;
+  border-radius: 50%;
+  z-index: 1;
+}
+.flower {
+  width: 14px;
+  height: 26px;
+  border-radius: 50% 50% 0 0;
+}
+.fl1 { background: #e84393; height: 30px; }
+.fl2 { background: #ffffff; height: 22px; }
+.fl3 { background: #fd79a8; height: 26px; }
+
+/* 나비 & 고추잠자리 */
+.butterfly {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 5;
+}
+.butterfly .wing {
+  position: absolute;
+  top: 0;
+  width: 7px;
+  height: 11px;
+  border-radius: 50% 50% 30% 30%;
+  animation: flapWing 0.22s infinite alternate ease-in-out;
+}
+.butterfly .wing-left { left: 0; transform-origin: right center; }
+.butterfly .wing-right { right: 0; transform-origin: left center; animation-delay: 0.05s; }
+.butterfly.b1 {
+  bottom: 95px; left: 30%;
+  animation: flyB1 22s ease-in-out infinite alternate;
+}
+.butterfly.b1 .wing { background: #ffeb3b; box-shadow: 0 0 5px rgba(255, 235, 59, 0.6); }
+.butterfly.b2 {
+  bottom: 120px; left: 75%;
+  animation: flyB2 28s ease-in-out infinite alternate;
+}
+.butterfly.b2 .wing { background: #ff7043; box-shadow: 0 0 5px rgba(255, 112, 67, 0.6); }
+
+@keyframes flapWing {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0.15); }
+}
+@keyframes flyB1 {
+  0% { transform: translate(0, 0) rotate(10deg); }
+  33% { transform: translate(70px, -35px) rotate(-15deg); }
+  66% { transform: translate(140px, 15px) rotate(25deg); }
+  100% { transform: translate(220px, -20px) rotate(5deg); }
+}
+@keyframes flyB2 {
+  0% { transform: translate(0, 0) rotate(-10deg); }
+  40% { transform: translate(-80px, -45px) rotate(15deg); }
+  80% { transform: translate(-160px, 10px) rotate(-20deg); }
+  100% { transform: translate(-230px, -30px) rotate(-5deg); }
+}
+
+.dragonfly {
+  position: absolute;
+  bottom: 140px;
+  left: 45%;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 5;
+  animation: flyDragonfly 18s ease-in-out infinite;
+}
+.df-body {
+  position: absolute;
+  top: 9px;
+  left: 2px;
+  width: 16px;
+  height: 3px;
+  background: #d32f2f;
+  border-radius: 2px;
+}
+.df-wing {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 10px;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  border-radius: 50%;
+  animation: flapDfWing 0.1s infinite alternate;
+}
+.df-w2 { left: 8px; top: 5px; animation-delay: 0.05s; }
+@keyframes flapDfWing {
+  0% { transform: scaleY(1); opacity: 0.8; }
+  100% { transform: scaleY(0.2); opacity: 0.4; }
+}
+@keyframes flyDragonfly {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(60px, -40px); }
+  50% { transform: translate(120px, -15px); }
+  75% { transform: translate(40px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* 툇마루 평상 바닥 */
+.wooden-porch {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #7a4d25 0px,
+      #84542a 4px,
+      #9b6434 20px,
+      #6c421e 24px
+    );
+  box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.4), 0 -8px 25px rgba(0,0,0,0.25);
+  border-top: 5px solid #583313;
+}
+
+/* 마당에서 낮잠 자는 귀여운 시골 똥강아지(누렁이) */
+.country-dog {
+  position: absolute;
+  bottom: 30px;
+  left: 10%;
+  width: 55px;
+  height: 35px;
+  z-index: 5;
+}
+.dog-body {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  width: 36px;
+  height: 20px;
+  background: #d49a55;
+  border-radius: 14px 18px 12px 14px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.dog-head {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  width: 20px;
+  height: 18px;
+  background: #dfa660;
+  border-radius: 50%;
+}
+.dog-ear {
+  position: absolute;
+  top: -2px;
+  width: 7px;
+  height: 10px;
+  background: #a86b29;
+  border-radius: 50% 50% 20% 20%;
+}
+.ear-left { left: 1px; transform: rotate(-20deg); }
+.ear-right { right: 3px; transform: rotate(15deg); }
+.dog-snout {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  width: 6px;
+  height: 4px;
+  background: #4a2810;
+  border-radius: 3px;
+}
+.dog-tail {
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  width: 14px;
+  height: 6px;
+  background: #c98e4a;
+  border-radius: 3px 6px 3px 3px;
+  transform-origin: left center;
+  animation: wagTail 1.8s ease-in-out infinite;
+}
+@keyframes wagTail {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(25deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ========================================================
+   2. 상단 툴바 (플로팅 오버레이: 캔버스 위에 뜸)
+   ======================================================== */
+#top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+  background: rgba(255, 252, 245, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 2px solid rgba(160, 115, 75, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+.game-title {
+  font-family: var(--font-title);
+  font-size: 1.55rem;
+  color: var(--wood-dark);
+  font-weight: 700;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.subtitle {
+  font-size: 0.88rem;
+  color: #7a6652;
+  margin-top: 2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 밥공기 크기 셀렉터 */
+.bowl-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(240, 230, 215, 0.75);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #d4c2a8;
+}
+.bowl-selector label {
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #553e2a;
+}
+.bowl-selector select {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #c2ad92;
+  background: #fff;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+/* 버튼 공통 */
+button {
+  font-family: var(--font-body);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #a7662c 0%, #874c19 100%);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(110, 60, 20, 0.3);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #bd7736 0%, #9c5921 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(110, 60, 20, 0.35);
+}
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-sub {
+  background: #f7ede2;
+  color: #634324;
+  border: 1px solid #d2bba3;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.btn-sub:hover {
+  background: #fae4cd;
+  border-color: #ba9a79;
+}
+
+/* 밥그릇 고정 토글 버튼 */
+.btn-bowl-lock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 0.82rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1.5px solid transparent;
+}
+.btn-bowl-lock.unlocked {
+  background: #fdf8f0;
+  color: #724c28;
+  border-color: #d8c3ad;
+}
+.btn-bowl-lock.unlocked:hover {
+  background: #faede0;
+  border-color: #ba9a79;
+}
+.btn-bowl-lock.locked {
+  background: linear-gradient(135deg, #d35400 0%, #b84300 100%);
+  color: #ffffff;
+  border-color: #a03800;
+  box-shadow: 0 2px 6px rgba(184, 67, 0, 0.35);
+}
+.btn-bowl-lock.locked:hover {
+  background: linear-gradient(135deg, #e67e22 0%, #c0392b 100%);
+}
+
+/* 사운드 컨트롤 */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 240, 230, 0.8);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #d8c7b3;
+}
+.btn-audio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 0.88rem;
+  color: #553e2a;
+  font-weight: bold;
+}
+.btn-audio .icon { font-size: 1.15rem; }
+.volume-slider-box input[type="range"] {
+  width: 75px;
+  cursor: pointer;
+  accent-color: #8c531b;
+}
+
+/* ========================================================
+   3. 메인 풀스크린 캔버스 (전체 윈도우 1:1 절대 매핑)
+   ======================================================== */
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: block;
+}
+
+/* ========================================================
+   4. 정밀 젓가락 마우스 커서 (SVG)
+   ======================================================== */
+#chopsticks-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 9999;
+  /* 젓가락 팁(14px, 147px)이 마우스 좌표(clientX, clientY)에 100.0% 완벽 일치 */
+  transform: translate(-14px, -147px);
+  will-change: left, top;
+}
+
+#chopsticks-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 움직이는 젓가락 B (손잡이 상단 151px 31px을 회전축으로 회전) */
+.stick-movable {
+  transform-origin: 151px 31px;
+  transition: transform 0.08s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+/* 마우스 누르고 있을 때 (Pinching: 두 팁이 밥알을 꽉 집음) */
+#chopsticks-cursor.pinching .stick-movable {
+  transform: rotate(-2.6deg);
+}
+
+/* ========================================================
+   5. 정답 입력 패널 (깔끔하고 직관적인 UI)
+   ======================================================== */
+#guess-panel {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: min(92%, 580px);
+}
+
+.guess-card {
+  background: rgba(255, 252, 246, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 16px 24px;
+  border-radius: 20px;
+  border: 2px solid #dfcfbc;
+  box-shadow: 0 8px 30px rgba(70, 45, 20, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.guess-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guess-info .tag {
+  background: #8c531b;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+.hint-text {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #553e2a;
+  transition: all 0.2s ease;
+}
+.hint-up {
+  color: #d32f2f !important;
+  animation: pulseHint 0.4s ease;
+}
+.hint-down {
+  color: #1976d2 !important;
+  animation: pulseHint 0.4s ease;
+}
+@keyframes pulseHint {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #ccb59b;
+  border-radius: 14px;
+  padding: 4px 6px 4px 14px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.06);
+  transition: border-color 0.2s;
+}
+.input-group:focus-within {
+  border-color: #8c531b;
+  box-shadow: 0 0 0 3px rgba(140, 83, 27, 0.15);
+}
+
+.input-icon {
+  font-size: 1.25rem;
+  margin-right: 8px;
+}
+
+#guess-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #4a331e;
+  background: transparent;
+  width: 100%;
+}
+#guess-input::placeholder {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: 0.95rem;
+  color: #a4917e;
+}
+
+.unit {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #7b624b;
+  margin-right: 12px;
+}
+
+#btn-submit-guess {
+  font-size: 0.95rem;
+  padding: 9px 20px;
+}
+
+.helper-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #7a624d;
+  border-top: 1px dashed #d8c5b0;
+  padding-top: 8px;
+}
+.tip-icon { font-size: 1rem; }
+.keyboard-tip { color: #826850; font-size: 0.84rem; }
+
+/* ========================================================
+   6. 성공 축하 모달 (폭죽 팡파레)
+   ======================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(18, 12, 8, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.victory-card {
+  background: linear-gradient(145deg, #fffcf5 0%, #faefe0 100%);
+  border: 4px solid #e0b368;
+  border-radius: 28px;
+  padding: 38px 36px;
+  width: min(90%, 500px);
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes modalPop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.celebration-badge {
+  display: inline-block;
+  background: #f39c12;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: bold;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(243, 156, 18, 0.35);
+}
+
+.victory-title {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  color: #633c16;
+  margin-bottom: 10px;
+}
+.victory-bowl-art {
+  font-size: 3.5rem;
+  margin: 12px 0;
+  animation: bowlBounce 1.5s infinite alternate ease-in-out;
+}
+@keyframes bowlBounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.victory-desc {
+  font-size: 1.25rem;
+  color: #4a331c;
+  margin-bottom: 8px;
+}
+.highlight-number {
+  font-family: var(--font-title);
+  font-size: 1.85rem;
+  color: #d32f2f;
+  text-decoration: underline wavy #e0b368 2px;
+}
+.victory-sub {
+  font-size: 0.95rem;
+  color: #7b624a;
+  margin-bottom: 24px;
+}
+.victory-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.btn-large {
+  padding: 12px 24px;
+  font-size: 1.05rem;
+  border-radius: 24px;
+}
+
+/* 시작 배너 */
+.start-banner {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  animation: bannerSlide 0.5s ease;
+}
+.start-banner.hidden { display: none; }
+@keyframes bannerSlide {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.start-box {
+  background: rgba(255, 252, 245, 0.95);
+  border: 2px solid #c9aa88;
+  padding: 14px 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.start-box p {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #553e2a;
+}
+.start-emoji { font-size: 1.4rem; }
+
+/* 반응형 */
+@media (max-width: 768px) {
+  #top-bar {
+    padding: 10px 14px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .header-left { text-align: center; }
+  .game-title { font-size: 1.25rem; }
+  .subtitle { display: none; }
+  #guess-panel { bottom: 12px; }
+  .guess-card { padding: 12px 16px; }
+}

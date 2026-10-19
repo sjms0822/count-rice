@@ -1,0 +1,19 @@
+{
+  "name": "count-rice",
+  "version": "1.0.0",
+  "description": "시골 마루의 밥알 세기 - 평온한 시골 풍경과 힐링 브금 속에서 즐기는 밥알 카운팅 웹 게임",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "game",
+    "rice",
+    "counting",
+    "healing",
+    "canvas",
+    "webaudio"
+  ],
+  "author": "",
+  "license": "MIT"
+}

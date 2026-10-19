@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>시골 마루의 밥알 세기 - 힐링 밥알 카운팅 게임</title>
+  <meta name="description" content="화창한 시골 툇마루에 앉아 새소리와 강물 소리, 똥강아지 짖는 소리를 들으며 평온하게 밥 한 공기 밥알을 세어보는 힐링 웹 게임">
+  <meta name="keywords" content="밥알 세기, 힐링 게임, 시골 풍경, 웹 게임, 밥 한 공기, 젓가락">
+  <meta property="og:title" content="시골 마루의 밥알 세기 🍚🌾">
+  <meta property="og:description" content="화창한 날 햇살과 강바람 아래, 젓가락으로 여유롭게 밥알을 세어보세요!">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Sunflower:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 전체 게임 화면 -->
+  <div id="game-container">
+    <!-- 풍성하고 아름다운 시골 자연 풍경 배경 -->
+    <div id="countryside-bg">
+      <!-- 1. 화창한 여름 하늘과 햇살, 구름, 날아가는 제비 -->
+      <div class="sky">
+        <div class="sun"></div>
+        <div class="sun-flare"></div>
+        <div class="sun-rays"></div>
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="birds-group">
+          <div class="bird bird-1"></div>
+          <div class="bird bird-2"></div>
+          <div class="bird bird-3"></div>
+        </div>
+      </div>
+
+      <!-- 2. 원경 푸른 산맥 -->
+      <div class="mountains-back"></div>
+      <div class="mountains-mid"></div>
+
+      <!-- 3. 울창한 숲과 소나무 숲 군락 -->
+      <div class="dense-forest">
+        <div class="forest-tree ft1"></div>
+        <div class="forest-tree ft2"></div>
+        <div class="forest-tree ft3"></div>
+        <div class="forest-tree ft4"></div>
+        <div class="forest-tree ft5"></div>
+      </div>
+
+      <!-- 4. 굽이쳐 흐르는 시원한 강가와 나룻배 -->
+      <div class="river-container">
+        <div class="river-water"></div>
+        <div class="river-glimmer"></div>
+        <div class="river-bank"></div>
+        <!-- 강가 조각배(나룻배) -->
+        <div class="wooden-boat">
+          <div class="boat-hull"></div>
+          <div class="boat-oar"></div>
+        </div>
+        <!-- 강가 갈대숲 -->
+        <div class="reeds r1"></div>
+        <div class="reeds r2"></div>
+      </div>
+
+      <!-- 5. 싱그러운 계단식 논밭 & 시골 정경 -->
+      <div class="rice-fields">
+        <div class="field-stripe f1"></div>
+        <div class="field-stripe f2"></div>
+        <div class="field-stripe f3"></div>
+
+        <!-- 논두렁 허수아비 -->
+        <div class="scarecrow">
+          <div class="sc-hat"></div>
+          <div class="sc-head"></div>
+          <div class="sc-arms"></div>
+          <div class="sc-body"></div>
+          <div class="sc-pole"></div>
+        </div>
+
+        <!-- 정겨운 시골집과 굴뚝 연기 -->
+        <div class="rural-house">
+          <div class="roof"></div>
+          <div class="wall"></div>
+          <div class="window"></div>
+          <div class="chimney"><div class="smoke"></div></div>
+        </div>
+
+        <!-- 장독대 항아리들 -->
+        <div class="jangdokdae">
+          <div class="pot pot-large"></div>
+          <div class="pot pot-mid"></div>
+          <div class="pot pot-small"></div>
+        </div>
+
+        <!-- 큰 느티나무 / 정자나무 -->
+        <div class="big-tree">
+          <div class="tree-trunk"></div>
+          <div class="tree-foliage fol-1"></div>
+          <div class="tree-foliage fol-2"></div>
+          <div class="tree-foliage fol-3"></div>
+        </div>
+
+        <!-- 들꽃 정원 (해바라기 & 코스모스) -->
+        <div class="wildflowers-box">
+          <div class="sunflower sf1"><div class="sf-center"></div></div>
+          <div class="sunflower sf2"><div class="sf-center"></div></div>
+          <div class="flower fl1"></div>
+          <div class="flower fl2"></div>
+          <div class="flower fl3"></div>
+        </div>
+
+        <!-- 나풀거리는 나비와 고추잠자리 -->
+        <div class="butterfly b1"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
+        <div class="butterfly b2"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
+        <div class="dragonfly"><div class="df-body"></div><div class="df-wing df-w1"></div><div class="df-wing df-w2"></div></div>
+      </div>
+
+      <!-- 6. 툇마루 바닥과 마당의 시골 똥강아지(누렁이) -->
+      <div class="wooden-porch">
+        <!-- 마당에서 낮잠 자며 꼬리 흔드는 귀여운 똥강아지 -->
+        <div class="country-dog" title="시골집 누렁이 똥강아지">
+          <div class="dog-body"></div>
+          <div class="dog-head">
+            <div class="dog-ear ear-left"></div>
+            <div class="dog-ear ear-right"></div>
+            <div class="dog-snout"></div>
+          </div>
+          <div class="dog-tail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상단 플로팅 툴바 (사운드, 공기 크기, 밥그릇 고정 버튼) -->
+    <header id="top-bar">
+      <div class="header-left">
+        <h1 class="game-title">🍚 시골 마루의 밥알 세기</h1>
+        <span class="subtitle">화창한 날 햇살과 강바람 아래, 여유롭게 밥알을 세어보세요</span>
+      </div>
+      <div class="header-right">
+        <!-- 난이도 / 밥공기 크기 선택 -->
+        <div class="bowl-selector">
+          <label for="bowl-size-select">공기 크기:</label>
+          <select id="bowl-size-select">
+            <option value="snack">맛보기 한 숟갈 (~120알)</option>
+            <option value="small">어린이 공기 (~600알)</option>
+            <option value="standard" selected>어른 밥 한 공기 (~2,200알)</option>
+            <option value="large">고봉 머슴밥 (~3,800알)</option>
+          </select>
+          <button id="btn-new-bowl" class="btn-sub" title="새 밥 새로 짓기">새 밥 짓기 🔄</button>
+          <!-- 밥그릇 고정 토글 버튼 -->
+          <button id="btn-toggle-bowl-lock" class="btn-bowl-lock unlocked" title="밥그릇 클릭/이동 고정 토글">
+            <span id="bowl-lock-icon">🔓</span>
+            <span id="bowl-lock-text">밥그릇 이동 가능</span>
+          </button>
+        </div>
+        <!-- 사운드 컨트롤 -->
+        <div class="audio-controls">
+          <button id="btn-audio-toggle" class="btn-audio" title="소리 켜기/끄기">
+            <span class="icon" id="audio-icon">🔊</span>
+            <span class="label" id="audio-label">시골 소리 On</span>
+          </button>
+          <div class="volume-slider-box">
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.7" title="전체 볼륨">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 인터랙티브 메인 풀스크린 캔버스 영역 -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- 정밀 커스텀 젓가락 커서 (SVG 기반) -->
+    <div id="chopsticks-cursor">
+      <svg id="chopsticks-svg" viewBox="0 0 160 160" width="160" height="160">
+        <defs>
+          <filter id="chopstick-shadow" x="-20%" y="-20%" width="150%" height="150%">
+            <feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="#1a0f07" flood-opacity="0.35"/>
+          </filter>
+          <linearGradient id="chopstick-grad-1" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f0cb9e"/>
+            <stop offset="25%" stop-color="#c98e52"/>
+            <stop offset="75%" stop-color="#915827"/>
+            <stop offset="100%" stop-color="#643612"/>
+          </linearGradient>
+          <linearGradient id="chopstick-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f5d5b0"/>
+            <stop offset="25%" stop-color="#d49a5e"/>
+            <stop offset="75%" stop-color="#9c612f"/>
+            <stop offset="100%" stop-color="#703d16"/>
+          </linearGradient>
+          <linearGradient id="gold-band" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700"/>
+            <stop offset="50%" stop-color="#fff8b3"/>
+            <stop offset="100%" stop-color="#b8860b"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 젓가락 A (기준 젓가락: 팁 14,146 -> 손잡이 141,23) -->
+        <g id="stick-a" filter="url(#chopstick-shadow)">
+          <polygon points="12,145 16,147 144,26 137,19" fill="url(#chopstick-grad-1)"/>
+          <polygon points="12,145 16,147 14,149" fill="#dfb382"/>
+          <polygon points="126,34 133,27 136,30 129,37" fill="url(#gold-band)"/>
+        </g>
+
+        <!-- 젓가락 B (집는 젓가락: 평소 팁 22,137 -> 손잡이 151,31, 클릭 시 팁이 오므려짐) -->
+        <g id="stick-b" class="stick-movable" filter="url(#chopstick-shadow)">
+          <polygon points="20,136 24,138 154,34 147,27" fill="url(#chopstick-grad-2)"/>
+          <polygon points="20,136 24,138 22,140" fill="#e8c296"/>
+          <polygon points="137,43 144,36 147,39 140,46" fill="url(#gold-band)"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 정답 입력 패널 (힌트/돋보기/카운터 제거되고 정답 입력창만 깔끔하게 유지) -->
+    <div id="guess-panel">
+      <div class="guess-card">
+        <div class="guess-info">
+          <span class="tag">정답 맞추기</span>
+          <span class="hint-text" id="status-hint">이 밥그릇 안엔 몇 알의 밥이 담겨 있을까요?</span>
+        </div>
+        <form id="guess-form" onsubmit="return false;">
+          <div class="input-group">
+            <span class="input-icon">🍚</span>
+            <input type="number" id="guess-input" placeholder="밥알 개수 입력" min="1" max="10000" autocomplete="off">
+            <span class="unit">알</span>
+            <button type="submit" id="btn-submit-guess" class="btn-primary">정답 확인</button>
+          </div>
+        </form>
+        <div class="helper-stats">
+          <span class="tip-icon">🥢</span>
+          <span class="keyboard-tip">젓가락으로 밥알을 집어 식탁에 덜어놓으며 세어보세요! (틀려도 무제한 재도전 가능)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 성공 축하 팝업 모달 (폭죽 팡파레) -->
+    <div id="victory-modal" class="modal-overlay hidden">
+      <div class="modal-content victory-card">
+        <div class="celebration-badge">🎉 정답입니다! 축하합니다! 🎉</div>
+        <h2 class="victory-title">달인의 눈썰미!</h2>
+        <div class="victory-bowl-art">🍚✨🌾</div>
+        <p class="victory-desc">
+          밥 한 공기에 담긴 밥알은 정확히 <strong id="modal-correct-count" class="highlight-number">0</strong>알이었습니다!
+        </p>
+        <p class="victory-sub" id="victory-attempts-text">
+          시원한 강바람과 똥강아지 소리를 들으며 차분하게 맞추셨네요.
+        </p>
+        <div class="victory-buttons">
+          <button id="btn-play-again" class="btn-primary btn-large">새로운 밥 한 공기 받기 🍚</button>
+          <button id="btn-keep-playing" class="btn-sub btn-large">계속 감상하기 🌾</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최초 오디오 재생 유도 팝업 -->
+    <div id="start-overlay" class="start-banner">
+      <div class="start-box">
+        <span class="start-emoji">🍃</span>
+        <p>화창한 시골의 평온한 풍경과 음악을 함께 들으시겠어요?</p>
+        <button id="btn-start-game" class="btn-primary">소리와 함께 시작하기 🎵</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 로드 -->
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
